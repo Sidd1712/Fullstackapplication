@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Sidd1712/Fullstackapplication.git"
+  },
+  "author": "Siddharth Mehta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sidd1712/Fullstackapplication/issues"
+  },
+  "homepage": "https://github.com/Sidd1712/Fullstackapplication#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "sequelize": "^6.21.3",
+    "sqlite3": "^5.0.11"
+  }
+}
