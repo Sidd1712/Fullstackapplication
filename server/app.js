@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { sequelize } = require("./models/index");
-var fs = require("fs");
-var path = require("path");
 const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");
 
