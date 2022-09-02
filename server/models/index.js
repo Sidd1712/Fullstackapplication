@@ -27,6 +27,6 @@ exports.User = db.User = require(path.join(__dirname, "./User"))(
   sequelize,
   Sequelize
 );
-// db.Product = require(path.join(__dirname, "./Product"))(sequelize, Sequelize);
+exports.Product = db.Product = require(path.join(__dirname, "./Product"))(sequelize, Sequelize);
 
 module.exports = db;
