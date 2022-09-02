@@ -1,13 +1,21 @@
-const { User } = require("../models/User");
-const config = require("../config");
+const { User } = require("../models/index");
 
 module.exports = {
-  async createUser(req, res) {
+  async create(req, res) {
+    const userName = req.body;
+    // Validate request
+    if (!userName) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
+      return;
+    }
     try {
-      const user = await User.create(req.body);
-      const userJSON = user.toJson();
+      const user = await User.create(userName);
+      const userJSON = user.toJSON();
       res.send({ user: userJSON });
     } catch (err) {
+      console.log(err);
       res.status(400).send({
         error: "couldnt create the user",
       });
