@@ -12,8 +12,8 @@ module.exports = {
     }
     try {
       const product = await Product.create(addedProduct);
-      const productJSON =product.toJSON();
-      res.send({product:productJSON });
+      const productJSON = product.toJSON();
+      res.send({ product: productJSON });
     } catch (err) {
       console.log(err);
       res.status(400).send({
@@ -22,8 +22,6 @@ module.exports = {
     }
   },
   async getAll(req, res) {
-    
-    
     try {
       const products = await Product.findAll();
       // const productJSON =products.toJSON();
@@ -36,10 +34,11 @@ module.exports = {
     }
   },
   async getById(req, res) {
-    
-    
+    console.log("req::::::", req.params.productId);
     try {
-      const product = await Product.findOne({where:req.params.productId});
+      const product = await Product.findOne({
+        where: { productId: req.params.productId },
+      });
       // const productJSON =products.toJSON();
       res.send(product);
     } catch (err) {

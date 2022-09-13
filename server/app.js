@@ -10,7 +10,7 @@ app.use(cors());
 
 app.post("/createUser", UserController.create);
 app.get("/products", ProductController.getAll);
-app.get("/products/:id", ProductController.getById);
+app.get("/products/:productId", ProductController.getById);
 app.post("/createProduct", ProductController.create);
 
 sequelize
