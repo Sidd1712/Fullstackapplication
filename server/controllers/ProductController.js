@@ -21,4 +21,18 @@ module.exports = {
       });
     }
   },
+  async getAll(req, res) {
+    
+    
+    try {
+      const products = await Product.findAll();
+      const productJSON =products.toJSON();
+      res.send({productJSON });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        error: "couldn't get the products.",
+      });
+    }
+  },
 };
