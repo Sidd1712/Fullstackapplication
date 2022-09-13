@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { sequelize } = require("./models/index");
-var fs = require("fs");
-var path = require("path");
 const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");
 
@@ -12,6 +10,7 @@ app.use(cors());
 
 app.post("/createUser", UserController.create);
 app.get("/products", ProductController.getAll);
+app.post("/createProduct", ProductController.create);
 
 sequelize
   .sync()
