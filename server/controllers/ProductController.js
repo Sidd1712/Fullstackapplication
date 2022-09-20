@@ -48,4 +48,34 @@ module.exports = {
       });
     }
   },
+  async update(req, res) {
+   
+    try {
+      const product = await Product.update(req.body,{
+        where: { productId: req.params.productId },
+      });
+      // const productJSON =products.toJSON();
+      res.send(product[product]);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        error: "couldn't update the product.",
+      });
+    }
+  },
+  async delete(req, res) {
+   
+    try {
+      await Product.destroy({
+        where: { productId: req.params.productId },
+      });
+      // const productJSON =products.toJSON();
+      res.send("Product deleted.");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        error: "couldn't delete the product.",
+      });
+    }
+  },
 };

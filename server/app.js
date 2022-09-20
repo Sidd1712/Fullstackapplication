@@ -9,9 +9,13 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/createUser", UserController.create);
+app.post("/login", UserController.login);
 app.get("/products", ProductController.getAll);
 app.get("/products/:productId", ProductController.getById);
+app.put("/products/:productId", ProductController.update);
+app.delete("/products/:productId", ProductController.delete);
 app.post("/createProduct", ProductController.create);
+
 
 sequelize
   .sync()
