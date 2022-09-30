@@ -54,6 +54,35 @@ const Navbar = () => {
           </StyledUnorderedList>
         </StyledLoginNav>
       </StyledHeader>
+      {/* hero */}
+      <StyledHero>
+        <StyledHeroHeading>Heading</StyledHeroHeading>
+        <StyledHeroHeading4>Subheading</StyledHeroHeading4>
+        <StyledHeroButton>Call to action</StyledHeroButton>
+      </StyledHero>
+      {/* /card row */}
+      <CardRow>
+        <StyledCard>
+          <StyledHeroHeading>Heading</StyledHeroHeading>
+          <StyledHeroHeading4>Subheading</StyledHeroHeading4>
+          <StyledHeroButton>Call to action</StyledHeroButton>
+        </StyledCard>
+        <StyledCard>
+          <StyledHeroHeading>Heading</StyledHeroHeading>
+          <StyledHeroHeading4>Subheading</StyledHeroHeading4>
+          <StyledHeroButton>Call to action</StyledHeroButton>
+        </StyledCard>
+        <StyledCard>
+          <StyledHeroHeading>Heading</StyledHeroHeading>
+          <StyledHeroHeading4>Subheading</StyledHeroHeading4>
+          <StyledHeroButton>Call to action</StyledHeroButton>
+        </StyledCard>
+        <StyledCard>
+          <StyledHeroHeading>Heading</StyledHeroHeading>
+          <StyledHeroHeading4>Subheading</StyledHeroHeading4>
+          <StyledHeroButton>Call to action</StyledHeroButton>
+        </StyledCard>
+      </CardRow>
     </>
   );
 };

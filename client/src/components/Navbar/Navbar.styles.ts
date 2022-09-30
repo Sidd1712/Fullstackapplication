@@ -29,3 +29,39 @@ export const StyledUnorderedList = styled.ul`
 export const StyledAnchor = styled.a`
   padding: 1rem;
 `;
+
+export const StyledHeroHeading = styled.h1`
+  margin-bottom: 3rem;
+`;
+
+export const StyledHero = styled.div`
+  padding: 5rem;
+  text-align: center;
+  background-color: #6666;
+`;
+export const StyledHeroHeading4 = styled.h4`
+  margin-bottom: 3rem;
+`;
+export const StyledHeroButton = styled.a`
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+`;
+export const StyledCard = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background-color: #6666;
+  border: 1px solid #6777;
+  box-shadow: #6777 0 2px 3px 0;
+`;
+export const CardRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
