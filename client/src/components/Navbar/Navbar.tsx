@@ -1,4 +1,5 @@
 import React from "react";
+import { navbarTypes } from "./Navbar.types";
 import {
   StyledHeader,
   StyledLogo,
@@ -14,7 +15,7 @@ import {
   CardRow,
 } from "./Navbar.styles";
 
-const Navbar = () => {
+const Navbar = ({link,ImgSrc}:navbarTypes) => {
   return (
     <>
       {/* header */}
@@ -22,7 +23,7 @@ const Navbar = () => {
         <StyledLogo>
           <a href="landingpage.html">
             <img
-              src="./sneakerimage.jpeg"
+              src={ImgSrc}
               alt="logo"
               id="header-img"
               width="60px"
@@ -33,7 +34,7 @@ const Navbar = () => {
         <StyledNav>
           <StyledUnorderedList>
             <li>
-              <StyledAnchor href="#menu1">menu1</StyledAnchor>
+              <StyledAnchor href={link}>menu1</StyledAnchor>
             </li>
             <li>
               <StyledAnchor href="#menu2">menu2</StyledAnchor>
