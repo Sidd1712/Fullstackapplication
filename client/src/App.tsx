@@ -7,7 +7,10 @@ import Footer from "./components/Footer/Footer";
 import sneakerimage from "./Assets/sneakerimage.jpeg";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
 import ViewProduct from "./components/pages/Homepage/ViewProduct/ViewProduct";
+import { Provider } from "react-redux";
+import store from "./Store/Store";
 const mockProducts = [
   {
     name: "Nike React Infinity Run Flyknit 3",
@@ -44,17 +47,20 @@ const mockProducts = [
 ];
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Navbar link="Hello" ImgSrc="./sneakerimage.jpeg" />
-        <Routes>
-          <Route path="/" element={<Homepage products={mockProducts} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/viewProduct" element={<ViewProduct />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Router>
+          <Navbar link="Hello" ImgSrc="./sneakerimage.jpeg" />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/viewProduct" element={<ViewProduct />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </div>
+    </Provider>
   );
 }
 
