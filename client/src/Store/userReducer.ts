@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "./usersApi";
+import { loginUser } from "./usersapi";
 
 const initialState = {
-  loading: false,
-  userInfo: {}, // for user object
-  userToken: null, // for storing the JWT
-  error: null,
-  success: false, // for monitoring the registration process.
+  userInfo: {},
+  token: null,
 };
 
 export const userSlice = createSlice({
@@ -15,9 +12,8 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.loading = false;
       state.userInfo = action.payload;
-      // state.userToken = action.payload.userToken;
+      state.token = action.payload.token;
     });
   },
 });
