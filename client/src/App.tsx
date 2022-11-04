@@ -10,7 +10,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import ViewProduct from "./components/pages/Homepage/ViewProduct/ViewProduct";
 import { Provider } from "react-redux";
-import store from "./Store/Store";
+import store from "./store/Store";
 const mockProducts = [
   {
     name: "Nike React Infinity Run Flyknit 3",

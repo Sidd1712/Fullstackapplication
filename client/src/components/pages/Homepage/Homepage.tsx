@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { HomepageProps } from "./Homepage.types";
 import { SingleProductProps } from "../../SingleProduct/SingleProduct.types";
 import { Grid, Container } from "./Homepage.styles";
-import { useAppDispatch, RootState } from "../../../Store/Store";
+import { useAppDispatch, RootState } from "../../../store/Store";
 import { useSelector } from "react-redux";
-import { getProducts } from "../../../Store/Productsapi";
+import { getProducts } from "../../../store/Productsapi";
 
 import SingleProduct from "../../SingleProduct/SingleProduct";
 

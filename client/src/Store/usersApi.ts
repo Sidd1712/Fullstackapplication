@@ -7,7 +7,6 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (email: FormValues) => {
     try {
-      console.log("email", email);
       const response = await API.post("/login", { email });
       setAuthorizationHeader(response.data.token);
       return response.data;
