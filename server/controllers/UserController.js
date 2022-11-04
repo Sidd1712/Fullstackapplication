@@ -1,5 +1,14 @@
+const jwt = require("jsonwebtoken");
 const { User } = require("../models/index");
 
+
+const jwtSignUser = (user)=>{
+const tokenExpiryTime = 60*60*24*7;
+return jwt.sign(user,"secret",{expiresIn:tokenExpiryTime});
+
+
+
+}
 module.exports = {
   async create(req, res) {
     const userName = req.body;
@@ -11,9 +20,12 @@ module.exports = {
       return;
     }
     try {
+
+      console.log('email',email);
       const user = await User.create(userName);
+      console.log('user',user);
       const userJSON = user.toJSON();
-      res.send({ user: userJSON });
+      res.send({ user: userJSON,token:jwtSignUser(userJSON) });
     } catch (err) {
       console.log(err);
       res.status(400).send({
@@ -33,7 +45,7 @@ module.exports = {
     try {
       const user = await User.findOne({where:{email:email}});
       const userJSON = user.toJSON();
-      res.send({ user: userJSON });
+      res.send({ user: userJSON,token:jwtSignUser(userJSON) });
     } catch (err) {
       console.log(err);
       res.status(400).send({
