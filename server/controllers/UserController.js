@@ -33,7 +33,7 @@ module.exports = {
     }
   },
   async login(req, res) {
-    const { email } = req.body;
+    const { email, password } = req.body;
     // Validate request
     // if (!userName) {
     //   res.status(400).send({
@@ -42,9 +42,29 @@ module.exports = {
     //   return;
     // }
     try {
-      console.log("email:::::", email);
-      const user = await User.findOne({ where: { email: email.email } });
+      console.log("email:::::", email, password);
+      const user = await User.findOne({
+        where: { email: email },
+      });
       console.log("user:::::", user);
+
+      //If no matching user in the database
+      if (!user) {
+        return res.status(401).send({
+          error: "The login information was incorrect",
+        });
+      }
+      console.log("Password", password);
+      //If the password does not match
+      const isPasswordValid = await user.comparePassword(password); //compares the password with the hashed password in the database
+      console.log("isPasswordValid", isPasswordValid);
+      if (!isPasswordValid) {
+        //
+        return res.status(401).send({
+          error: "The login information was incorrect",
+        });
+      }
+
       const userJSON = user.toJSON();
       console.log("userJSON:::::", userJSON);
       res.send({ user: userJSON, token: jwtSignUser(userJSON) });
