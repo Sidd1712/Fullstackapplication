@@ -2,11 +2,12 @@ import { useForm, Resolver } from "react-hook-form";
 import { useAppDispatch, RootState } from "../../store/Store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loginUser } from "../../store/usersApi";
+import { loginUser } from "../../store/usersapi";
 import { useNavigate } from "react-router-dom";
 
 export type FormValues = {
   email: string;
+  password: string
 };
 
 const resolver: Resolver<FormValues> = async (values) => {
@@ -18,13 +19,14 @@ const resolver: Resolver<FormValues> = async (values) => {
             type: "required",
             message: "This is required.",
           },
+          
         }
       : {},
   };
 };
 
 const Login = () => {
-  const { loading, userInfo } = useSelector((state: RootState) => state.user);
+  const authenticated  = useSelector((state: RootState) => state.user.authenticated);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -33,16 +35,14 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver });
-  // const submitForm = handleSubmit(email) => {
-  //   dispatch(loginUser(email));
-  // };
+  
   const onSubmit = handleSubmit((data) => dispatch(loginUser(data)));
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate("/user-profile");
-  //   }
-  // }, [navigate, userInfo]);
+   useEffect(() => {
+    if (authenticated) {
+       navigate("/");
+     }
+   }, [navigate, authenticated]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -61,11 +61,11 @@ const Login = () => {
         <input
           type="password"
           className="form-input"
-          // {...register("password")}
+         {...register("password")}
           required
         />
       </div>
-      <button type="submit" className="button" disabled={loading}>
+      <button type="submit" className="button">
         Login
       </button>
     </form>

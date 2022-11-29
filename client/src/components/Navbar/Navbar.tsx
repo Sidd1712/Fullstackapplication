@@ -1,5 +1,7 @@
 import React from "react";
 import { navbarTypes } from "./Navbar.types";
+import { useAppDispatch,RootState } from "../../store/Store";
+import { useSelector } from "react-redux";
 import {
   StyledHeader,
   StyledLogo,
@@ -14,8 +16,25 @@ import {
   StyledCard,
   CardRow,
 } from "./Navbar.styles";
+import { logoutUser } from "../../store/usersapi";
 
 const Navbar = ({link,ImgSrc}:navbarTypes) => {
+  const dispatch = useAppDispatch()
+  const authenticated = useSelector(
+
+(state:RootState)=> state.user.authenticated
+
+
+
+
+
+
+  )
+  const handleLogout = () =>{
+  dispatch(logoutUser())
+
+
+  }
   return (
     <>
       {/* header */}
@@ -34,23 +53,27 @@ const Navbar = ({link,ImgSrc}:navbarTypes) => {
         <StyledNav>
           <StyledUnorderedList>
             <li>
-              <StyledAnchor href={link}>menu1</StyledAnchor>
+              <StyledAnchor href="/">Home</StyledAnchor>
             </li>
             <li>
-              <StyledAnchor href="#menu2">menu2</StyledAnchor>
+              <StyledAnchor href="/about">About</StyledAnchor>
             </li>
             <li>
-              <StyledAnchor href="#menu3">menu3</StyledAnchor>
+              <StyledAnchor href="/createProduct">Sell</StyledAnchor>
             </li>
           </StyledUnorderedList>
         </StyledNav>
         <StyledLoginNav>
           <StyledUnorderedList>
+            {
+              !authenticated && (<li>
+                <StyledAnchor href="/signUp">SignUp</StyledAnchor>
+              </li>)
+            }
+            
             <li>
-              <StyledAnchor href="#menu1">menu1</StyledAnchor>
-            </li>
-            <li>
-              <StyledAnchor href="#menu2">menu2</StyledAnchor>
+            {authenticated ? (<button onClick={()=> handleLogout()}>Logout</button>) : (<StyledAnchor href="/login">Login</StyledAnchor>)}
+              
             </li>
           </StyledUnorderedList>
         </StyledLoginNav>

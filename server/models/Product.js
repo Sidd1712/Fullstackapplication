@@ -11,4 +11,7 @@ module.exports = (sequelize, Sequelize) => {
     sellerId: { type: DataTypes.INTEGER }
   });
   return Product;
+
+
+  
 };
