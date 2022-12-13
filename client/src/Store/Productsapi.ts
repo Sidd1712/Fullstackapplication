@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "./api";
 import { SingleProductProps } from "../components/SingleProduct/SingleProduct.types";
+import { CreateProductFormValues } from "../components/CreateProduct/CreateProduct";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
@@ -26,9 +27,9 @@ export const getProductById = createAsyncThunk(
   }
 );
 
-export const addProduct = createAsyncThunk("products/addProduct", async () => {
+export const addProduct = createAsyncThunk("products/addProduct", async (data: CreateProductFormValues) => {
   try {
-    const response = await API.post("/createProduct");
+    const response = await API.post("/createProduct",data);
     return response.data;
   } catch (error) {
     console.log(error);

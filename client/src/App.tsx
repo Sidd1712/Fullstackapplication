@@ -11,6 +11,7 @@ import Signup from "./components/Signup/Signup";
 import ViewProduct from "./components/pages/Homepage/ViewProduct/ViewProduct";
 import { Provider } from "react-redux";
 import store from "./store/Store";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
 const mockProducts = [
   {
     name: "Nike React Infinity Run Flyknit 3",
@@ -56,6 +57,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/viewProduct" element={<ViewProduct />} />
+            <Route path="/createProduct" element={<CreateProduct />} />
           </Routes>
           <Footer />
         </Router>

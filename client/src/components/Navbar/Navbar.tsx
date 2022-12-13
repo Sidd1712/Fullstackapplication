@@ -58,9 +58,9 @@ const Navbar = ({link,ImgSrc}:navbarTypes) => {
             <li>
               <StyledAnchor href="/about">About</StyledAnchor>
             </li>
-            <li>
+            {authenticated && <li>
               <StyledAnchor href="/createProduct">Sell</StyledAnchor>
-            </li>
+            </li>}
           </StyledUnorderedList>
         </StyledNav>
         <StyledLoginNav>
