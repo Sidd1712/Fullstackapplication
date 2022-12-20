@@ -17,7 +17,7 @@ export const getProducts = createAsyncThunk(
 
 export const getProductById = createAsyncThunk(
   "products/getProductById",
-  async (productId: number) => {
+  async (productId: string) => {
     try {
       const response = await API.get(`/products/${productId}`);
       return response.data;
@@ -40,7 +40,7 @@ export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async (product: SingleProductProps) => {
     try {
-      const response = await API.put(`/products/${product.productId}`, product);
+      const response = await API.put(`/products/${product.id}`, product);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ export const updateProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
-  async (productId: number) => {
+  async (productId: string) => {
     try {
       const response = await API.delete(`/products/${productId}`);
       return response.data;

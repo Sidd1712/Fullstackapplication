@@ -20,13 +20,14 @@ const Homepage = () => {
     <Container>
       <Grid>
         {products.map((product: SingleProductProps) => (
-          <div key={product.productId}>
+          <div key={product.id}>
             <SingleProduct
               name={product.name}
               price={product.price}
               image={product.image}
               desc={product.desc}
               productHref={product.productHref}
+              id = {product.id}
             ></SingleProduct>
           </div>
         ))}
