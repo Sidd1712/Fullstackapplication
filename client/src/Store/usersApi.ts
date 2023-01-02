@@ -1,28 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "./api";
 import axios from "axios";
-import { FormValues } from "../components/Login/Login";
+import { LoginFormValues } from "../components/Login/Login";
 import { SignupFormValues } from "../components/Signup/Signup";
 
 export const loginUser = createAsyncThunk(
   "user/login",
-  async ({email,password}: FormValues) => {
+  async ({ email, password }: LoginFormValues) => {
     try {
-      const response = await API.post("/login", { email:email,password:password });
+      const response = await API.post("/login", {
+        email: email,
+        password: password,
+      });
       setAuthorizationHeader(response.data.token);
-      console.log("Login data",response.data.user);
+      console.log("response.data", response.data.user);
       return response.data.user;
     } catch (error) {
       console.log(error);
     }
   }
 );
-
-const logout = () =>{
-
-  localStorage.removeItem("FBIdToken");
-  delete axios.defaults.headers.common["Authorization"];
-}
 
 export const signupUser = createAsyncThunk(
   "user/signup",
@@ -42,11 +39,16 @@ export const signupUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk("user/logout",async () => {
+const logout = () => {
+  console.log("localStorage", localStorage);
+  localStorage.removeItem("FBIdToken");
+  delete axios.defaults.headers.common["Authorization"];
+  console.log("localStorage", localStorage);
+};
 
-  await logout()
-})
-// userAction.js
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  await logout();
+});
 
 const setAuthorizationHeader = (token: string) => {
   const FBIdToken = `Bearer ${token}`;

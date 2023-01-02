@@ -4,7 +4,7 @@ import sneakerimage from "../../Assets/sneakerimage.jpeg";
 export const Container = styled.div`
   position: relative;
   width: 350px;
-
+  height: 550px;
   border-radius: 20px;
   padding: 40px;
   box-sizing: border-box;
@@ -12,6 +12,7 @@ export const Container = styled.div`
   margin: 3rem auto;
   box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 `;
+
 export const BrandLogo = styled.div`
   height: 150px;
   width: 150px;
@@ -29,6 +30,7 @@ export const BrandTitle = styled.div`
   color: #1da1f2;
   letter-spacing: 1px;
 `;
+
 export const Inputs = styled.div`
   text-align: left;
   margin-top: 30px;

@@ -53,7 +53,7 @@ const Signup = () => {
   // };
   const onSubmit = handleSubmit((data) => dispatch(signupUser(data)));
 
-  useEffect(()=> {
+  useEffect(() => {
     if (userInfo.userId !== "") {
       navigate("/");
     }
@@ -83,7 +83,7 @@ const Signup = () => {
               {...register("email")}
               required
             />
-            </div>
+          </div>
           <div className="form-group">
             <StyledLabels htmlFor="password">Password</StyledLabels>
             <StyledInput

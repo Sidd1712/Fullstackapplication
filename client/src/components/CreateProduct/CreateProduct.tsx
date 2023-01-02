@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addProduct } from "../../store/Productsapi";
 import { useNavigate } from "react-router-dom";
-import { workerData } from "worker_threads";
 import {
   Container,
   BrandLogo,
@@ -26,17 +25,35 @@ export type CreateProductFormValues = {
 };
 
 const resolver: Resolver<CreateProductFormValues> = async (values) => {
+  return {
+    values: values.name && values.price ? values : {},
+    errors:
+      !values.name || !values.price
+        ? {
+            name: {
+              type: "required",
+              message: "This is required.",
+            },
+            price: {
+              type: "required",
+              message: "This is required.",
+            },
+          }
+        : {},
+  };
+};
 
-    return {values:values,errors:{}}
-}
 const CreateProduct = () => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<CreateProductFormValues>({
-    resolver,
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateProductFormValues>({ resolver });
+
   const onSubmit = handleSubmit((data) =>
     dispatch(
       addProduct({
@@ -56,32 +73,50 @@ const CreateProduct = () => {
           <div className="form-group">
             <StyledLabels htmlFor="name">name</StyledLabels>
 
-            <StyledInput type = "text" className="form-input" {...register("name")} required></StyledInput>
+            <StyledInput
+              type="text"
+              className="form-input"
+              {...register("name")}
+              required
+            ></StyledInput>
           </div>
 
           <div className="form-group">
             <StyledLabels htmlFor="price">price</StyledLabels>
 
-            <StyledInput type = "text" className="form-input" {...register("price")} required></StyledInput>
+            <StyledInput
+              type="text"
+              className="form-input"
+              {...register("price")}
+              required
+            ></StyledInput>
           </div>
 
           <div className="form-group">
             <StyledLabels htmlFor="image">image</StyledLabels>
 
-            <StyledInput type = "text" className="form-input" {...register("image")} required></StyledInput>
+            <StyledInput
+              type="text"
+              className="form-input"
+              {...register("image")}
+              required
+            ></StyledInput>
           </div>
 
           <div className="form-group">
             <StyledLabels htmlFor="desc">description</StyledLabels>
 
-            <StyledInput type = "text" className="form-input" {...register("desc")} required></StyledInput>
+            <StyledInput
+              type="text"
+              className="form-input"
+              {...register("desc")}
+              required
+            ></StyledInput>
           </div>
 
-          <StyledButton type = "submit" className="button">
-
+          <StyledButton type="submit" className="button">
             Submit
           </StyledButton>
-
         </form>
       </Inputs>
     </Container>
