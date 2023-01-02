@@ -16,17 +16,19 @@ const Homepage = () => {
   }, [dispatch]);
 
   const products = useSelector((state: RootState) => state.products.products);
+  console.log("products", products);
   return (
     <Container>
       <Grid>
         {products.map((product: SingleProductProps) => (
-          <div key={product.productId}>
+          <div key={product.id}>
             <SingleProduct
               name={product.name}
               price={product.price}
               image={product.image}
               desc={product.desc}
               productHref={product.productHref}
+              id={product.id}
             ></SingleProduct>
           </div>
         ))}

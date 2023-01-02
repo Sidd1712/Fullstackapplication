@@ -3,7 +3,7 @@ export interface SingleProductProps {
   price: string;
   image: string;
   desc: string;
-  productId?: number;
+  id: string;
   seller?: string;
   sellerId?: number;
   productHref: string;

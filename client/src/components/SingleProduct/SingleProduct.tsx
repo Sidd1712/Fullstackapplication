@@ -1,5 +1,6 @@
 import React from "react";
 import { SingleProductProps } from "./SingleProduct.types";
+import { Link } from "react-router-dom";
 import { Image, Flexcontainer } from "./SingleProduct.styles";
 /*import {
   StyledHeader,
@@ -17,7 +18,8 @@ import { Image, Flexcontainer } from "./SingleProduct.styles";
 } from "./SingleProduct.styles";*/
 
 const SingleProduct = (props: SingleProductProps) => {
-  const { name, price, image, desc, productHref } = props;
+  const { name, price, image, desc, productHref, id } = props;
+  console.log("id", id);
   return (
     <Flexcontainer>
       <a href={productHref}>
@@ -26,6 +28,9 @@ const SingleProduct = (props: SingleProductProps) => {
       <h3>{name} </h3>
       <p>{desc} </p>
       <p>{price}</p>
+      <Link to={`/products/${id}`} type="button">
+        View More
+      </Link>
     </Flexcontainer>
   );
 };

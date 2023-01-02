@@ -2,9 +2,8 @@ import { useForm, Resolver } from "react-hook-form";
 import { useAppDispatch, RootState } from "../../store/Store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addProduct } from "../../store/Productsapi";
-import { useNavigate } from "react-router-dom";
-import { workerData } from "worker_threads";
+import { getProductById, updateProduct } from "../../store/Productsapi";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Container,
   BrandLogo,
@@ -13,43 +12,54 @@ import {
   StyledLabels,
   StyledInput,
   StyledButton,
-} from "./CreateProduct.styles";
+} from "./EditProduct.styles";
 
-export type CreateProductFormValues = {
+export type EditProductFormValues = {
   name: string;
   price: string;
   image: string;
   seller: string;
-  productId: string;
+  id: string;
   desc: string;
-  sellerId: string;
+  sellerId: number;
+  productHref: string;
 };
 
-const resolver: Resolver<CreateProductFormValues> = async (values) => {
+const resolver: Resolver<EditProductFormValues> = async (values) => {
   return { values: values, errors: {} };
 };
-const CreateProduct = () => {
-  const userInfo = useSelector((state: RootState) => state.user.userInfo);
+const EditProduct = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<CreateProductFormValues>({
+  const params = useParams<{ id: string }>();
+
+  console.log("params", params);
+
+  useEffect(() => {
+    if (params.id) {
+      dispatch(getProductById(params.id));
+    }
+  }, []);
+
+  const product = useSelector((state: RootState) => state.products.product);
+  const user = useSelector((state: RootState) => state.user.userInfo);
+  console.log("productß", product);
+
+  const { register, handleSubmit } = useForm<EditProductFormValues>({
     resolver,
   });
-  console.log("userInfo", userInfo);
   const onSubmit = handleSubmit((data) =>
     dispatch(
-      addProduct({
+      updateProduct({
         ...data,
-        seller: userInfo.username,
-        sellerId: userInfo.userId,
       })
     )
   );
   return (
     <Container>
       <BrandLogo></BrandLogo>
-      <BrandTitle>CreateProduct</BrandTitle>
+      <BrandTitle>Edit Product</BrandTitle>
 
       <Inputs>
         <form onSubmit={onSubmit}>
@@ -98,11 +108,11 @@ const CreateProduct = () => {
           </div>
 
           <StyledButton type="submit" className="button">
-            Submit
+            Update
           </StyledButton>
         </form>
       </Inputs>
     </Container>
   );
 };
-export default CreateProduct;
+export default EditProduct;

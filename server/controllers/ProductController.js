@@ -34,10 +34,10 @@ module.exports = {
     }
   },
   async getById(req, res) {
-    console.log("req::::::", req.params.productId);
+    console.log("req::::::", req.params.id);
     try {
       const product = await Product.findOne({
-        where: { productId: req.params.productId },
+        where: { id: req.params.id },
       });
       // const productJSON =products.toJSON();
       res.send(product);
@@ -49,10 +49,9 @@ module.exports = {
     }
   },
   async update(req, res) {
-   
     try {
-      const product = await Product.update(req.body,{
-        where: { productId: req.params.productId },
+      const product = await Product.update(req.body, {
+        where: { id: req.params.id },
       });
       // const productJSON =products.toJSON();
       res.send(product[product]);
@@ -64,10 +63,9 @@ module.exports = {
     }
   },
   async delete(req, res) {
-   
     try {
       await Product.destroy({
-        where: { productId: req.params.productId },
+        where: { id: req.params.id },
       });
       // const productJSON =products.toJSON();
       res.send("Product deleted.");

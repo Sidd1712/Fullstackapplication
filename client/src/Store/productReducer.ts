@@ -22,7 +22,7 @@ const initialState: ProductState = {
     desc: "",
     seller: "",
     productHref: "",
-    productId: 0,
+    id: "",
     sellerId: 0,
   },
 };
@@ -41,14 +41,14 @@ export const productsSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.products = state.products.map((product) =>
-          product.productId === action.payload.productId
+          product.id === action.payload.id
             ? (product = action.payload)
             : product
         );
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         let index = state.products.findIndex(
-          ({ productId }) => productId === action.payload.productId
+          ({ id }) => id === action.payload.id
         );
         state.products.splice(index, 1);
       })
