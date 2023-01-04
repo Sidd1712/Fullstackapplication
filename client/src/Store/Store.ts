@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { productsSlice } from "./productReducer";
-import { userSlice } from "./UserReducer";
+import { userSlice } from "./userReducer";
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,

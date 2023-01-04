@@ -13,6 +13,7 @@ import { store } from "./store/Store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
+import EditProduct from "./components/EditProduct/EditProduct";
 
 let persistor = persistStore(store);
 
@@ -29,6 +30,7 @@ function App() {
               {/* <Route path="/about" element={<About />} /> */}
               <Route path="/signup" element={<Signup />} />
               <Route path="/products/:id" element={<ViewProduct />} />
+              <Route path="/products/:id/edit" element={<EditProduct />} />
               <Route path="/createProduct" element={<CreateProduct />} />
             </Routes>
             <Footer />

@@ -46,15 +46,18 @@ const EditProduct = () => {
   const user = useSelector((state: RootState) => state.user.userInfo);
   console.log("productß", product);
 
-  const { register, handleSubmit } = useForm<EditProductFormValues>({
-    resolver,
+  const { register, handleSubmit } = useForm<EditProductFormValues>({ 
+    defaultValues : {name:product.name, price: product.price, image: product.image, desc: product.desc},
+     resolver,
   });
   const onSubmit = handleSubmit((data) =>
-    dispatch(
+    {dispatch(
       updateProduct({
         ...data,
+        id:product.id
       })
     )
+    navigate("/")}
   );
   return (
     <Container>

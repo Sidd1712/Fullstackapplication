@@ -3,30 +3,29 @@ import React, { useEffect } from "react";
 import { Grid, Image, Flexcontainer, Container } from "./ViewProduct.styles";
 import sneakerimage from "../../../../Assets/sneakerimage.jpeg";
 import { RootState, useAppDispatch } from "../../../../store/Store";
-import { useParams } from "react-router-dom";
-import { getProductById } from "../../../../store/Productsapi";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { deleteProduct, getProductById } from "../../../../store/Productsapi";
 import { useSelector } from "react-redux";
 
-
-
 const ViewProduct = () => {
-const dispatch = useAppDispatch()
-const params = useParams<{id: string}>()
-useEffect(()=>{
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  const params = useParams<{ id: string }>();
+  useEffect(() => {
+    if (params.id) {
+      dispatch(getProductById(params.id));
+    }
+  }, [params.id]);
 
+  const product = useSelector((state: RootState) => state.products.product);
 
-  if (params.id) {
+  const user = useSelector((state: RootState) => state.user);
 
-    dispatch(getProductById(params.id))
+  const handleDelete =() => {
+
+    dispatch(deleteProduct(product.id))
+    navigate("/")
   }
-},[params.id])
-
-const product = useSelector((state:RootState)=>state.products.product)
-
-
-const user = useSelector((state:RootState)=>state.user)
-
-
 
   return (
     <Container>
@@ -37,6 +36,12 @@ const user = useSelector((state:RootState)=>state.user)
           <p>{product.desc}</p>
           <p>{product.price}</p>
         </Flexcontainer>
+        {product.seller === user.userInfo.username ? (
+          <Flexcontainer>
+            <button onClick={handleDelete}>Delete</button>
+            <Link to={"/products/" + product.id + "/edit"}>Update</Link>
+          </Flexcontainer>
+        ) : null}
       </Grid>
     </Container>
   );

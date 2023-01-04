@@ -34,7 +34,7 @@ export const addProduct = createAsyncThunk("products/addProduct", async (data: C
   } catch (error) {
     console.log(error);
   }
-);
+});
 
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
