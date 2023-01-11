@@ -6,29 +6,56 @@ import { RootState, useAppDispatch } from "../../../../store/Store";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { deleteProduct, getProductById } from "../../../../store/Productsapi";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { send } from "process";
 
 const ViewProduct = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const params = useParams<{ id: string }>();
+  const customId = "custom-toast-id";
   useEffect(() => {
-    if (params.id) {
-      dispatch(getProductById(params.id));
-    }
+    const fetchData = async () => {
+      if (params.id) {
+        const result = await dispatch(getProductById(params.id));
+        if (getProductById.rejected.match(result)) {
+          toast.error(
+            "Sorry, something went wrong with finding this product.",
+            {
+              position: "top-center",
+              toastId: customId,
+            }
+          );
+        }
+      }
+    };
+
+    fetchData();
   }, [params.id]);
 
   const product = useSelector((state: RootState) => state.products.product);
 
   const user = useSelector((state: RootState) => state.user);
+  const sendDelete = async (id: string) => {
+    const result = await dispatch(deleteProduct(id));
+    if (deleteProduct.rejected.match(result)) {
+      toast.error("Sorry, something went wrong deleting this product.", {
+        toastId: customId,
+        position: "top-center",
+      });
+    } else {
+      navigate("/");
+    }
+  };
 
-  const handleDelete =() => {
-
-    dispatch(deleteProduct(product.id))
-    navigate("/")
-  }
+  const handleDelete = () => {
+    sendDelete(product.id);
+  };
 
   return (
     <Container>
+      <ToastContainer />
       <Grid>
         <Image src={product.image} alt="" />
         <Flexcontainer>

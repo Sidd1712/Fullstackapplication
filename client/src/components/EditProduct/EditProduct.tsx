@@ -2,6 +2,8 @@ import { useForm, Resolver } from "react-hook-form";
 import { useAppDispatch, RootState } from "../../store/Store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getProductById, updateProduct } from "../../store/Productsapi";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -30,6 +32,7 @@ const resolver: Resolver<EditProductFormValues> = async (values) => {
 };
 const EditProduct = () => {
   const dispatch = useAppDispatch();
+  const customId = "custom-toast-id";
   const navigate = useNavigate();
 
   const params = useParams<{ id: string }>();
@@ -37,30 +40,61 @@ const EditProduct = () => {
   console.log("params", params);
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getProductById(params.id));
-    }
-  }, []);
+    const fetchData = async () => {
+      if (params.id) {
+        const result = await dispatch(getProductById(params.id));
+        if (getProductById.rejected.match(result)) {
+          toast.error(
+            "Sorry, something went wrong with finding this product.",
+            {
+              position: "top-center",
+              toastId: customId,
+            }
+          );
+        }
+      }
+    };
+
+    fetchData();
+  }, [params.id]);
 
   const product = useSelector((state: RootState) => state.products.product);
   const user = useSelector((state: RootState) => state.user.userInfo);
   console.log("productß", product);
 
-  const { register, handleSubmit } = useForm<EditProductFormValues>({ 
-    defaultValues : {name:product.name, price: product.price, image: product.image, desc: product.desc},
-     resolver,
+  const { register, handleSubmit } = useForm<EditProductFormValues>({
+    defaultValues: {
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      desc: product.desc,
+    },
+    resolver,
   });
-  const onSubmit = handleSubmit((data) =>
-    {dispatch(
+
+  const sendUpdate = async (data: EditProductFormValues) => {
+    const result = await dispatch(
       updateProduct({
         ...data,
-        id:product.id
+        id: product.id,
       })
-    )
-    navigate("/")}
-  );
+    );
+    if (updateProduct.rejected.match(result)) {
+      toast.error("Sorry, something went wrong updating this product.", {
+        toastId: customId,
+        position: "top-center",
+      });
+    } else {
+      navigate("/");
+    }
+  };
+
+  const onSubmit = handleSubmit((data) => {
+    sendUpdate(data);
+  });
   return (
     <Container>
+      <ToastContainer />
       <BrandLogo></BrandLogo>
       <BrandTitle>Edit Product</BrandTitle>
 

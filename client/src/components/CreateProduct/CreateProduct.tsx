@@ -3,6 +3,8 @@ import { useAppDispatch, RootState } from "../../store/Store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addProduct } from "../../store/Productsapi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -13,6 +15,7 @@ import {
   StyledInput,
   StyledButton,
 } from "./CreateProduct.styles";
+import { send } from "process";
 
 export type CreateProductFormValues = {
   name: string;
@@ -46,6 +49,7 @@ const resolver: Resolver<CreateProductFormValues> = async (values) => {
 const CreateProduct = () => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
   const dispatch = useAppDispatch();
+  const customId = "custom-toast-id";
   const navigate = useNavigate();
 
   const {
@@ -54,17 +58,28 @@ const CreateProduct = () => {
     formState: { errors },
   } = useForm<CreateProductFormValues>({ resolver });
 
-  const onSubmit = handleSubmit((data) =>
-    dispatch(
+  const sendProduct = async (data: CreateProductFormValues) => {
+    const result = await dispatch(
       addProduct({
         ...data,
         seller: userInfo.username,
         sellerId: userInfo.userId,
       })
-    )
-  );
+    );
+    if (addProduct.rejected.match(result)) {
+      toast.error("Sorry, something went wrong adding this product.", {
+        toastId: customId,
+        position: "top-center",
+      });
+    } else {
+      navigate("/");
+    }
+  };
+
+  const onSubmit = handleSubmit((data) => sendProduct(data));
   return (
     <Container>
+      <ToastContainer />
       <BrandLogo></BrandLogo>
       <BrandTitle>CreateProduct</BrandTitle>
 
